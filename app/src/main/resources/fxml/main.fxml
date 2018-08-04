@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?language javascript?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import java.net.URL?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.Orientation?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.text.TextFlow?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.im.social.controller.MainController"
+            prefWidth="900"
+            prefHeight="600">
+    <stylesheets>
+        <URL value="@/css/app.css"/>
+    </stylesheets>
+    <left>
+        <HBox>
+            <GridPane>
+                <vgap>10</vgap>
+                <padding>
+                    <Insets top="10"/>
+                </padding>
+                <alignment>
+                    <Pos fx:value="TOP_CENTER"/>
+                </alignment>
+                <style>
+                    -fx-background-color:#2A2829;
+                </style>
+                <prefWidth>50</prefWidth>
+                <StackPane>
+                    <GridPane.rowIndex>0</GridPane.rowIndex>
+                    <GridPane.columnIndex>0</GridPane.columnIndex>
+                    <prefWidth>30</prefWidth>
+                    <prefHeight>30</prefHeight>
+                    <padding>
+                        <Insets topRightBottomLeft="5"/>
+                    </padding>
+                    <effect>
+                        <DropShadow>
+                            <radius>5</radius>
+                            <offsetY>2.0</offsetY>
+                        </DropShadow>
+                    </effect>
+                    <ImageView>
+                        <Image backgroundLoading="true" url="@/icons/users.png"/>
+                        <fitWidth>30</fitWidth>
+                        <fitHeight>30</fitHeight>
+                        <clip>
+                            <Circle fx:id="circle" fill="aqua" centerX="15" centerY="15">
+                                <radius>15</radius>
+                            </Circle>
+                        </clip>
+                    </ImageView>
+                </StackPane>
+
+                <StackPane onMouseEntered="#handlerMsgMouseEntered" onMouseExited="#handlerMsgMouseExit">
+                    <GridPane.rowIndex>1</GridPane.rowIndex>
+                    <GridPane.columnIndex>0</GridPane.columnIndex>
+                    <prefWidth>30</prefWidth>
+                    <prefHeight>30</prefHeight>
+                    <padding>
+                        <Insets topRightBottomLeft="5"/>
+                    </padding>
+
+                    <ImageView fx:id="msg_icon">
+                        <Image url="@/icons/msg_32.png"/>
+                        <fitHeight>20</fitHeight>
+                        <fitWidth>20</fitWidth>
+                    </ImageView>
+                </StackPane>
+
+
+                <StackPane onMouseEntered="#handlerContactMouseEntered" onMouseExited="#handlerContactMouseExit">
+                    <GridPane.rowIndex>2</GridPane.rowIndex>
+                    <GridPane.columnIndex>0</GridPane.columnIndex>
+                    <prefWidth>30</prefWidth>
+                    <prefHeight>30</prefHeight>
+                    <padding>
+                        <Insets topRightBottomLeft="5"/>
+                    </padding>
+                    <ImageView fx:id="contact_icon">
+                        <Image url="@/icons/contact_32.png"/>
+                        <fitHeight>20</fitHeight>
+                        <fitWidth>20</fitWidth>
+                    </ImageView>
+                </StackPane>
+            </GridPane>
+            <VBox fx:id="list">
+                <style>
+                    -fx-background-color:#ECE9E7
+                </style>
+                <prefWidth>250</prefWidth>
+                <GridPane>
+                    <padding>
+                        <Insets topRightBottomLeft="10"/>
+                    </padding>
+                    <alignment>
+                        <Pos fx:value="CENTER_LEFT"/>
+                    </alignment>
+                    <hgap>10</hgap>
+                    <TextField>
+                        <GridPane.rowIndex>0</GridPane.rowIndex>
+                        <GridPane.columnIndex>0</GridPane.columnIndex>
+                        <prefWidth>200</prefWidth>
+                        <promptText>搜索</promptText>
+                        <focusTraversable>false</focusTraversable>
+                    </TextField>
+                    <StackPane>
+                        <GridPane.rowIndex>0</GridPane.rowIndex>
+                        <GridPane.columnIndex>1</GridPane.columnIndex>
+                        <Rectangle>
+                            <width>25</width>
+                            <height>25</height>
+                            <style>
+                                -fx-fill:transparent;
+                                -fx-stroke-width:1;
+                                -fx-stroke:#c0c0c0;
+                            </style>
+                        </Rectangle>
+                        <ImageView>
+                            <Image url="@/icons/plus_32.png"/>
+                            <fitWidth>20</fitWidth>
+                            <fitHeight>20</fitHeight>
+                        </ImageView>
+                    </StackPane>
+                </GridPane>
+
+                <ListView fx:id="lv" prefHeight="${list.height}">
+                    <focusTraversable>false</focusTraversable>
+
+                </ListView>
+            </VBox>
+        </HBox>
+    </left>
+    <center>
+        <BorderPane>
+            <style>
+                -fx-background-color:#F5F5F5
+            </style>
+            <prefWidth>200</prefWidth>
+            <top>
+
+            </top>
+            <center>
+                <StackPane>
+                    <Label>
+                        <StackPane.alignment>
+                            <Pos fx:value="CENTER"/>
+                        </StackPane.alignment>
+                        易信
+                        <font>
+                            <Font>
+                                <size>35</size>
+                            </Font>
+                        </font>
+                    </Label>
+                    <BorderPane>
+                        <top>
+                            <!--建议信息 如人名啥的-->
+                            <GridPane>
+                                <prefHeight>50</prefHeight>
+                                <padding>
+                                    <Insets topRightBottomLeft="10"/>
+                                </padding>
+                                <style>
+                                    -fx-background-color:transparent;
+                                </style>
+
+                                <Text>
+                                    张三
+                                    <font>
+                                        <Font>
+                                            <size>20</size>
+                                        </Font>
+                                    </font>
+                                    <GridPane.rowIndex>0</GridPane.rowIndex>
+                                    <GridPane.columnIndex>0</GridPane.columnIndex>
+                                </Text>
+                            </GridPane>
+                        </top>
+                        <center>
+                            <!--聊天面板加底部输入框-->
+                            <SplitPane dividerPositions="0.8,0.2">
+                                <orientation>
+                                    <Orientation fx:value="VERTICAL"/>
+                                </orientation>
+                                <!--信息面板-->
+                                <StackPane fx:id="chart_pane">
+                                    <ListView  fx:id="msgList" prefHeight="${chart_pane.height}">
+                                    </ListView>
+                                </StackPane>
+                                <BorderPane>
+                                    <!--工具条-->
+                                    <top>
+                                        <GridPane>
+                                            <prefHeight>25</prefHeight>
+                                            <padding>
+                                                <Insets>
+                                                    <left>15</left>
+                                                    <right>15</right>
+                                                </Insets>
+                                            </padding>
+                                            <hgap>10</hgap>
+                                            <StackPane styleClass="clicked">
+                                                <GridPane.rowIndex>0</GridPane.rowIndex>
+                                                <GridPane.columnIndex>0</GridPane.columnIndex>
+                                                <prefWidth>25</prefWidth>
+                                                <ImageView>
+                                                    <fitHeight>25</fitHeight>
+                                                    <fitWidth>25</fitWidth>
+                                                    <Image url="@/icons/expression_32.png"/>
+                                                </ImageView>
+                                            </StackPane>
+                                            <StackPane styleClass="clicked">
+                                                <GridPane.rowIndex>0</GridPane.rowIndex>
+                                                <GridPane.columnIndex>1</GridPane.columnIndex>
+                                                <prefWidth>25</prefWidth>
+                                                <ImageView>
+                                                    <fitHeight>20</fitHeight>
+                                                    <fitWidth>20</fitWidth>
+                                                    <Image url="@/icons/cutting_32.png"/>
+                                                </ImageView>
+                                            </StackPane>
+
+                                        </GridPane>
+                                    </top>
+                                    <!--编辑框-->
+                                    <center>
+                                        <TextArea>
+                                            <minHeight>150</minHeight>
+                                            <wrapText>true</wrapText>
+                                            <padding>
+                                                <Insets top="10" left="10"/>
+                                            </padding>
+                                            <font>
+                                                <Font>
+                                                    <size>16</size>
+                                                </Font>
+                                            </font>
+                                        </TextArea>
+                                    </center>
+                                </BorderPane>
+                            </SplitPane>
+                        </center>
+                    </BorderPane>
+                </StackPane>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
