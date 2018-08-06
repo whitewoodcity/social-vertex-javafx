@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'com.im.social'
+group 'cn.net.polyglot'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
