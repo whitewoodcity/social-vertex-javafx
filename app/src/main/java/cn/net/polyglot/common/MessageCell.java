@@ -1,21 +1,16 @@
-package com.im.social.common;
+package cn.net.polyglot.common;
 
-import com.im.social.entity.Message;
-import javafx.event.EventHandler;
+import cn.net.polyglot.entity.Message;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class MessageCell extends ListCell<Message> {

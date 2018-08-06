@@ -1,20 +1,15 @@
-package com.im.social.controller;
+package cn.net.polyglot.controller;
 
-import com.im.social.common.ContactCell;
-import com.im.social.common.MessageCell;
-import com.im.social.entity.Message;
+import cn.net.polyglot.common.ContactCell;
+import cn.net.polyglot.common.MessageCell;
+import cn.net.polyglot.entity.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;

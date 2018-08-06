@@ -1,4 +1,4 @@
-package com.im.social.entity;
+package cn.net.polyglot.entity;
 
 public class Message {
 
