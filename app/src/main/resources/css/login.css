@@ -1,0 +1,12 @@
+.text-field{
+    -fx-background-insets: 0;
+    -fx-border-color: #c0c0c0;
+    -fx-text-fill: black;
+}
+
+.hyperlink{
+    -fx-text-fill: #7AC1DA;
+}
+.clicked:pressed{
+    -fx-background-color: #c0c0c0;
+}

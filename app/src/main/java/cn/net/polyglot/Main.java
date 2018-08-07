@@ -1,5 +1,6 @@
 package cn.net.polyglot;
 
+import cn.net.polyglot.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,8 +16,13 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
     primaryStage.setTitle("易信");
-    Parent parent = FXMLLoader.load(ClassLoader.getSystemResource("fxml/main.fxml"));
-    Scene scene = new Scene(parent);
+    primaryStage.setAlwaysOnTop(true);
+    primaryStage.setResizable(false);
+    FXMLLoader loader=new FXMLLoader(ClassLoader.getSystemResource("fxml/login.fxml"));
+    Parent parent = loader.load();
+    LoginController controller=loader.getController();
+    controller.setStage(primaryStage);
+    Scene scene = new Scene(parent,400,300);
     primaryStage.setScene(scene);
     primaryStage.show();
   }

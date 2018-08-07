@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cn.net.polyglot.controller.LoginController">
+    <stylesheets>
+        <URL value="@/css/login.css"/>
+    </stylesheets>
+    <top>
+        <StackPane>
+            <alignment>
+                <Pos fx:value="CENTER"/>
+            </alignment>
+            <prefHeight>80</prefHeight>
+            <Text>
+                <text>易信</text>
+                <font>
+                    <Font>
+                        <size>18</size>
+                    </Font>
+                </font>
+            </Text>
+        </StackPane>
+    </top>
+    <center>
+        <GridPane>
+           <alignment>
+               <Pos fx:value="TOP_CENTER"/>
+           </alignment>
+            <hgap>10</hgap>
+            <vgap>10</vgap>
+
+            <StackPane>
+                <prefHeight>50</prefHeight>
+                <prefWidth>80</prefWidth>
+                <GridPane.rowIndex>0</GridPane.rowIndex>
+
+                <GridPane.rowSpan>4</GridPane.rowSpan>
+                <ImageView>
+                    <Image url="@/icons/users.png"/>
+                    <fitWidth>70</fitWidth>
+                    <fitHeight>70</fitHeight>
+                </ImageView>
+            </StackPane>
+            <TextField fx:id="account">
+                <GridPane.rowIndex>1</GridPane.rowIndex>
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.columnSpan>2</GridPane.columnSpan>
+                <prefWidth>150</prefWidth>
+                <promptText>输入帐号或邮箱</promptText>
+            </TextField>
+            <PasswordField fx:id="psd">
+                <GridPane.rowIndex>2</GridPane.rowIndex>
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.columnSpan>2</GridPane.columnSpan>
+                <prefWidth>150</prefWidth>
+                <promptText>输入密码</promptText>
+            </PasswordField>
+
+            <Hyperlink onAction="#doRegister">
+                <text>注册帐号</text>
+                <GridPane.rowIndex>1</GridPane.rowIndex>
+                <GridPane.columnIndex>3</GridPane.columnIndex>
+            </Hyperlink>
+            <Button onAction="#doLogin">
+                <GridPane.rowIndex>4</GridPane.rowIndex>
+                <GridPane.columnIndex>3</GridPane.columnIndex>
+                <text>登陆</text>
+            </Button>
+        </GridPane>
+    </center>
+
+</BorderPane>

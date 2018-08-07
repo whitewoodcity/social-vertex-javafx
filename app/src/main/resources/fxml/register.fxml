@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cn.net.polyglot.controller.RegisterController">
+    <stylesheets>
+        <URL value="@/css/register.css"/>
+    </stylesheets>
+    <top>
+        <StackPane>
+            <prefHeight>20</prefHeight>
+
+            <StackPane onMouseClicked="#doBack">
+                <styleClass>clicked</styleClass>
+                <maxWidth>20</maxWidth>
+                <maxHeight>20</maxHeight>
+                <padding>
+                    <Insets topRightBottomLeft="5"/>
+                </padding>
+                <StackPane.alignment>
+                    <Pos fx:value="CENTER_LEFT"/>
+                </StackPane.alignment>
+                <ImageView>
+                    <Image url="@/icons/back.png"/>
+                    <fitHeight>20</fitHeight>
+                    <fitWidth>20</fitWidth>
+                </ImageView>
+            </StackPane>
+
+            <Text>
+                <text>注册帐号</text>
+                <StackPane.alignment>
+                    <Pos fx:value="CENTER"/>
+                </StackPane.alignment>
+                <font>
+                    <Font>
+                        <size>18</size>
+                    </Font>
+                </font>
+            </Text>
+        </StackPane>
+    </top>
+    <center>
+        <GridPane>
+           <alignment>
+               <Pos fx:value="CENTER"/>
+           </alignment>
+            <hgap>10</hgap>
+            <vgap>10</vgap>
+            <Label>
+                <text>帐号：</text>
+                <GridPane.rowIndex>1</GridPane.rowIndex>
+                <GridPane.columnIndex>0</GridPane.columnIndex>
+            </Label>
+            <TextField fx:id="account">
+                <GridPane.rowIndex>1</GridPane.rowIndex>
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.columnSpan>2</GridPane.columnSpan>
+                <prefWidth>150</prefWidth>
+                <promptText>输入帐号或邮箱</promptText>
+            </TextField>
+            <Label>
+                <text>密码：</text>
+                <GridPane.rowIndex>2</GridPane.rowIndex>
+                <GridPane.columnIndex>0</GridPane.columnIndex>
+            </Label>
+            <PasswordField fx:id="psd">
+                <GridPane.rowIndex>2</GridPane.rowIndex>
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.columnSpan>2</GridPane.columnSpan>
+                <prefWidth>150</prefWidth>
+                <promptText>输入密码</promptText>
+            </PasswordField>
+            <Button onAction="#doRegister">
+                <GridPane.rowIndex>4</GridPane.rowIndex>
+                <GridPane.columnIndex>3</GridPane.columnIndex>
+                <text>注册</text>
+            </Button>
+        </GridPane>
+    </center>
+
+</BorderPane>

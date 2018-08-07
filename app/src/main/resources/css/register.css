@@ -1,0 +1,9 @@
+.clicked:pressed{
+    -fx-background-color: #c0c0c0;
+}
+
+.text-field{
+    -fx-background-insets: 0;
+    -fx-border-color: #c0c0c0;
+    -fx-text-fill: black;
+}
