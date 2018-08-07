@@ -22,7 +22,7 @@
 <?import javafx.scene.text.TextFlow?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.im.social.controller.MainController"
+            fx:controller="cn.net.polyglot.controller.MainController"
             prefWidth="900"
             prefHeight="600">
     <stylesheets>
