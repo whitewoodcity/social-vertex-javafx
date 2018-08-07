@@ -150,7 +150,8 @@
     <center>
         <BorderPane>
             <style>
-                -fx-background-color:#F5F5F5
+                -fx-background-color:#F5F5F5;
+                -fx-border-width:0;
             </style>
             <prefWidth>200</prefWidth>
             <top>
@@ -169,7 +170,12 @@
                             </Font>
                         </font>
                     </Label>
-                    <BorderPane>
+                    <BorderPane visible="true">
+                        <style>
+                            -fx-background-color:#F5F5F5;
+                            -fx-border-color:#F5F5F5;
+                            -fx-border-width:0;
+                        </style>
                         <top>
                             <!--建议信息 如人名啥的-->
                             <GridPane>
@@ -179,6 +185,8 @@
                                 </padding>
                                 <style>
                                     -fx-background-color:transparent;
+                                    -fx-border-color:transparent;
+                                    -fx-border-width:0;
                                 </style>
 
                                 <Text>
@@ -199,9 +207,14 @@
                                 <orientation>
                                     <Orientation fx:value="VERTICAL"/>
                                 </orientation>
+                                <style>
+                                    -fx-background-color:#F5F5F5;
+                                    -fx-border-color:#F5F5F5;
+                                    -fx-border-width:0;
+                                </style>
                                 <!--信息面板-->
                                 <StackPane fx:id="chart_pane">
-                                    <ListView  fx:id="msgList" prefHeight="${chart_pane.height}">
+                                    <ListView fx:id="msgList">
                                     </ListView>
                                 </StackPane>
                                 <BorderPane>
@@ -241,7 +254,7 @@
                                     </top>
                                     <!--编辑框-->
                                     <center>
-                                        <TextArea>
+                                        <TextArea styleClass="editorArea">
                                             <minHeight>150</minHeight>
                                             <wrapText>true</wrapText>
                                             <padding>

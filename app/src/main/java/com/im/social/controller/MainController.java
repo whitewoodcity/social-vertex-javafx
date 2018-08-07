@@ -54,11 +54,8 @@ public class MainController implements Initializable {
         lv.setItems(strList);
         msgList.setCellFactory(param -> new MessageCell());
         msgList.setEditable(false);
-        msgList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue.intValue());
-            msgList.requestFocus();
-        });
         msgList.setItems(msgs);
+
     }
 
     public void handlerMsgMouseEntered(MouseEvent mouseEvent) {

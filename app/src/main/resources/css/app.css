@@ -3,7 +3,7 @@
     -fx-padding: 0 1 0 1;
 }
 
-.list-view{
+#lv {
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-border-insets: 0;
@@ -31,8 +31,13 @@
 #lv .list-cell:pressed{
     -fx-background-color:#c0c0c0 ;
 }
-
-
+#msgList{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
 #msgList .list-cell:even{
     -fx-background-color: #F5F5F5;
 }
@@ -111,7 +116,15 @@
     -fx-border-color: #c0c0c0;
     -fx-text-fill: black;
 }
-.text-area{
+.editorArea{
+    -fx-background-insets: 0;
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: transparent;
+    -fx-border-insets: 0;
+    -fx-border-width: 0;
+    -fx-text-fill: black;
+}
+.editorArea:focused{
     -fx-background-insets: 0;
     -fx-background-color: white;
     -fx-border-color: transparent;
@@ -119,12 +132,31 @@
     -fx-border-width: 0;
     -fx-text-fill: black;
 }
-.text-area > .content{
+.editorArea .scroll-pane .content{
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-border-insets: 0;
-    -fx-region-border:null;
+    -fx-background-color: #F5F5F5;
+}
+
+.editorArea .scroll-pane .content:focused{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-insets: 0;
+    -fx-background-color: #F5F5F5;
 }
 .clicked:pressed{
     -fx-background-color: #c0c0c0;
+}
+
+.copyLabel{
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+.copyLabel .scroll-pane .content{
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 0;
 }
