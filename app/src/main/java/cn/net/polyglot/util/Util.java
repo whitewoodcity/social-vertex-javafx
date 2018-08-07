@@ -8,11 +8,7 @@ import java.security.NoSuchAlgorithmException;
 public class Util {
 
   public static String md5(String s) throws NoSuchAlgorithmException {
-    MessageDigest digest = MessageDigest.getInstance("MD5");
-    digest.update(s.getBytes(Charset.forName("UTF-8")));
-    String hex = new BigInteger(1, digest.digest()).toString(16);
-    // 补齐BigInteger省略的前置0
-    return new String(new char[32 - hex.length()]).replace("\0", "0") + hex;
+    return md5(s, Charset.forName("UTF-8"));
   }
 
   public static String md5(String s, Charset charset) throws NoSuchAlgorithmException {
