@@ -17,59 +17,60 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
 
-    public ImageView msg_icon;
-    public ImageView contact_icon;
-    public ListView<String> lv;
-    public ListView<Message> msgList;
+  public ImageView msg_icon;
+  public ImageView contact_icon;
+  public ListView<String> lv;
+  public ListView<Message> msgList;
 
-    private Image normalMsg=new Image("icons/msg_32.png");
-    private Image enterMsg=new Image("icons/msg_enter_32.png");
-    private Image normalContact=new Image("icons/contact_32.png");
-    private Image enterContact=new Image("icons/contact_enter_32.png");
-    private ObservableList<String> strList= FXCollections.observableArrayList("1","2","3","1","2","3","1","2","3"
-    ,"1","2","3","1","2","3","1","2","3","1","2","3","1","2","3","1","2","3");
-    private ObservableList<Message> msgs= FXCollections.observableArrayList(new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒dsad",false),
-            new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒dsadafdsfsdfdsfdsfdsfdsffdsfsfsfdsfdsfdsfdsfdsfdsfdsfsfsfsfsdfdsfdsfdsfdsfsdfdsdsfdsfdsfsdfsdfdsfsdfdsfdsfdsfdsfsdfdsfdsfdsfds",false),
-            new Message("的撒旦撒打算的撒dsada",false),
-            new Message("的撒旦撒打算的撒d",true),
-            new Message("的撒旦撒打算的撒dsadas",false),
-            new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒dsa",false),
-            new Message("的撒旦撒打算的撒",true),
-            new Message("的撒旦撒打算的撒",true)
-            );
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        lv.setCellFactory(param -> new ContactCell());
-        lv.setItems(strList);
-        msgList.setCellFactory(param -> new MessageCell());
-        msgList.setEditable(false);
-        msgList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue.intValue());
-            msgList.requestFocus();
-        });
-        msgList.setItems(msgs);
-    }
+  private Image normalMsg = new Image("icons/msg_32.png");
+  private Image enterMsg = new Image("icons/msg_enter_32.png");
+  private Image normalContact = new Image("icons/contact_32.png");
+  private Image enterContact = new Image("icons/contact_enter_32.png");
+  private ObservableList<String> strList = FXCollections.observableArrayList("1", "2", "3", "1", "2", "3", "1", "2", "3"
+      , "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3");
+  private ObservableList<Message> msgs = FXCollections.observableArrayList(new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒dsad", false),
+      new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒dsadafdsfsdfdsfdsfdsfdsffdsfsfsfdsfdsfdsfdsfdsfdsfdsfsfsfsfsdfdsfdsfdsfdsfsdfdsdsfdsfdsfsdfsdfdsfsdfdsfdsfdsfdsfsdfdsfdsfdsfds", false),
+      new Message("的撒旦撒打算的撒dsada", false),
+      new Message("的撒旦撒打算的撒d", true),
+      new Message("的撒旦撒打算的撒dsadas", false),
+      new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒dsa", false),
+      new Message("的撒旦撒打算的撒", true),
+      new Message("的撒旦撒打算的撒", true)
+  );
 
-    public void handlerMsgMouseEntered(MouseEvent mouseEvent) {
-        msg_icon.setImage(enterMsg);
-    }
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    lv.setCellFactory(param -> new ContactCell());
+    lv.setItems(strList);
+    msgList.setCellFactory(param -> new MessageCell());
+    msgList.setEditable(false);
+    msgList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+      System.out.println(newValue.intValue());
+      msgList.requestFocus();
+    });
+    msgList.setItems(msgs);
+  }
 
-    public void handlerMsgMouseExit(MouseEvent mouseEvent) {
-        msg_icon.setImage(normalMsg);
-    }
+  public void handlerMsgMouseEntered(MouseEvent mouseEvent) {
+    msg_icon.setImage(enterMsg);
+  }
 
-    public void handlerContactMouseEntered(MouseEvent mouseEvent) {
-        contact_icon.setImage(enterContact);
-    }
+  public void handlerMsgMouseExit(MouseEvent mouseEvent) {
+    msg_icon.setImage(normalMsg);
+  }
 
-    public void handlerContactMouseExit(MouseEvent mouseEvent) {
-        contact_icon.setImage(normalContact);
-    }
+  public void handlerContactMouseEntered(MouseEvent mouseEvent) {
+    contact_icon.setImage(enterContact);
+  }
+
+  public void handlerContactMouseExit(MouseEvent mouseEvent) {
+    contact_icon.setImage(normalContact);
+  }
 
 }

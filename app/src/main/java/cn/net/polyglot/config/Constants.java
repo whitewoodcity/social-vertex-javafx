@@ -2,11 +2,11 @@ package cn.net.polyglot.config;
 
 public class Constants {
 
-  public static final double currentVersion = 0.2;
+  public static final double CURRENT_VERSION = 0.2;
 
-  public static final String server = "polyglot.net.cn";
-  public static final int httpPort = 7575;
-  public static final int tcpPort = 7373;
+  public static final String SERVER = "polyglot.net.cn";
+  public static final int DEFAULT_HTTP_PORT = 7575;
+  public static final int DEFAULT_TCP_PORT = 7373;
 
   public static final String MESSAGE = "message";
   public static final String SEARCH = "search";
