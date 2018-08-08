@@ -70,7 +70,7 @@ public class LoginController {
                     if(ar.succeeded()){
                         HttpResponse<JsonObject> response=ar.result();
                         System.out.println(response.body());
-
+                        stage.getScene().setRoot(loginView);
                     }else {
                         stage.getScene().setRoot(loginView);
                     }
