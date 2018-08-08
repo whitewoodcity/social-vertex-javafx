@@ -7,8 +7,13 @@ import java.security.NoSuchAlgorithmException;
 
 public class Util {
 
-  public static String md5(String s) throws NoSuchAlgorithmException {
-    return md5(s, Charset.forName("UTF-8"));
+  public static String md5(String s){
+    try {
+      return md5(s, Charset.forName("UTF-8"));
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
+    return "";
   }
 
   public static String md5(String s, Charset charset) throws NoSuchAlgorithmException {

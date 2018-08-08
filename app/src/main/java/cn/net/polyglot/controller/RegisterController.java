@@ -29,8 +29,8 @@ public class RegisterController {
             Parent parent=loader.load();
             LoginController controller=loader.getController();
             controller.setStage(stage);
-            Scene scene=new Scene(parent,400,300);
-            stage.setScene(scene);
+//            Scene scene=new Scene(parent,400,300);
+            stage.getScene().setRoot(parent);
         } catch (IOException e) {
             e.printStackTrace();
         }
