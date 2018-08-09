@@ -3,7 +3,6 @@ package cn.net.polyglot.controller;
 import cn.net.polyglot.config.Constants;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
@@ -13,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,6 +21,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static cn.net.polyglot.config.Constants.*;
 
 public class LoginController {
   public TextField account;
@@ -59,13 +59,13 @@ public class LoginController {
     String user = account.getText();
     String password = psd.getText();
     WebClient client = WebClient.create(Vertx.vertx());
-    client.put(Constants.DEFAULT_HTTP_PORT, Constants.SERVER, "/"+Constants.USER+"/"+Constants.LOGIN)
+    client.put(DEFAULT_HTTP_PORT, SERVER, "/"+USER+"/"+LOGIN)
         .timeout(30000)
         .as(BodyCodec.jsonObject())
         .sendJsonObject(new JsonObject()
-            .put(Constants.ID, user)
-            .put(Constants.PASSWORD, Util.md5(password))
-            .put(Constants.VERSION, Constants.CURRENT_VERSION), ar -> {
+            .put(ID, user)
+            .put(PASSWORD, Util.md5(password))
+            .put(VERSION, CURRENT_VERSION), ar -> {
           if (ar.succeeded()) {
             HttpResponse<JsonObject> response = ar.result();
             System.out.println(response.body());
