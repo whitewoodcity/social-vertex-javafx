@@ -36,7 +36,7 @@ public class Constants {
   public static final String TCP_PORT = "tcp-port";
   public static final String HTTP_PORT = "http-port";
   public static final String KEYWORD = "keyword";
-  public static final String OFFLINE = "offiline";
+  public static final String OFFLINE = "offline";
   public static final String END = "\r\n";
 
 }
