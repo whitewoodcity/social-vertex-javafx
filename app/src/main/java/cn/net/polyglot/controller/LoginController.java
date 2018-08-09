@@ -63,8 +63,6 @@ public class LoginController {
         .timeout(30000)
         .as(BodyCodec.jsonObject())
         .sendJsonObject(new JsonObject()
-            .put(Constants.TYPE, Constants.USER)
-            .put(Constants.SUBTYPE, Constants.LOGIN)
             .put(Constants.ID, user)
             .put(Constants.PASSWORD, Util.md5(password))
             .put(Constants.VERSION, Constants.CURRENT_VERSION), ar -> {
