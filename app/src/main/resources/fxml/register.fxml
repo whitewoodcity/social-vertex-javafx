@@ -13,8 +13,10 @@
 <?import javafx.scene.image.Image?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.paint.Color?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
+            fx:id="registView"
             fx:controller="cn.net.polyglot.controller.RegisterController">
     <stylesheets>
         <URL value="@/css/register.css"/>
@@ -84,9 +86,20 @@
                 <prefWidth>150</prefWidth>
                 <promptText>输入密码</promptText>
             </PasswordField>
+            <Label fx:id="errorInfo">
+                <wrapText>true</wrapText>
+                <prefWidth>150</prefWidth>
+                <GridPane.rowIndex>3</GridPane.rowIndex>
+                <GridPane.columnIndex>1</GridPane.columnIndex>
+                <GridPane.rowSpan>2</GridPane.rowSpan>
+                <GridPane.columnSpan>2</GridPane.columnSpan>
+                <style>
+                    -fx-text-fill:red
+                </style>
+            </Label>
             <Button onAction="#doRegister">
                 <GridPane.rowIndex>4</GridPane.rowIndex>
-                <GridPane.columnIndex>3</GridPane.columnIndex>
+                <GridPane.columnIndex>5</GridPane.columnIndex>
                 <text>注册</text>
             </Button>
         </GridPane>
