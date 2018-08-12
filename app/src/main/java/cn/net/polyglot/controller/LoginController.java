@@ -58,26 +58,6 @@ public class LoginController {
         String user = account.getText();
         String password = psd.getText();
 
-        NetClientOptions options = new NetClientOptions().setConnectTimeout(10000);
-         Vertx.vertx().createNetClient(options).connect(Constants.DEFAULT_TCP_PORT, Constants.SERVER, event -> {
-            if (event.succeeded()) {
-                NetSocket netSocket = event.result();
-                Map<String, Object> map = new HashMap<>();
-                map.put(Constants.TYPE, "user");
-                map.put(Constants.SUBTYPE, "login");
-                map.put(Constants.ID, user);
-                map.put(Constants.PASSWORD, Util.md5(password));
-                map.put(Constants.VERSION, Constants.CURRENT_VERSION);
-                JsonObject jsonObject = new JsonObject(map);
-                netSocket.write(jsonObject.toString()+"\r\n");
-                netSocket.handler(buff->{
-                    System.out.println(new String(buff.getBytes()));
-                });
-
-            } else if (event.failed()) {
-                event.cause().printStackTrace();
-            }
-        });
 
     }
 }
