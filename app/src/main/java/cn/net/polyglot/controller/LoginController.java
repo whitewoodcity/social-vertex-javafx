@@ -1,6 +1,7 @@
 package cn.net.polyglot.controller;
 
 import cn.net.polyglot.config.Constants;
+import cn.net.polyglot.net.AppService;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -57,7 +58,7 @@ public class LoginController {
         stage.getScene().setRoot(root);
         String user = account.getText();
         String password = psd.getText();
-
+        AppService.get().doLogin(user,password);
 
     }
 }

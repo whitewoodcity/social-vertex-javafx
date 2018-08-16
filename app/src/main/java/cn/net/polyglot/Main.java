@@ -1,6 +1,7 @@
 package cn.net.polyglot;
 
 import cn.net.polyglot.controller.LoginController;
+import cn.net.polyglot.net.AppService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,5 +27,10 @@ public class Main extends Application {
     Scene scene = new Scene(parent,400,300);
     primaryStage.setScene(scene);
     primaryStage.show();
+  }
+
+  @Override
+  public void stop() throws Exception {
+    AppService.get().disconnect();
   }
 }
