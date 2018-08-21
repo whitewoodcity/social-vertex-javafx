@@ -16,38 +16,38 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class AppService{
+public class AppService {
 
     private NetClient netClient;
     private NetSocket clientSocket;
     private MessageReceiverHandler messageReceiverHandler;
     private Thread messageEvent;
 
-    private AppService(){
-        messageReceiverHandler=new MessageReceiverHandler();
+    private AppService() {
+        messageReceiverHandler = new MessageReceiverHandler();
         NetClientOptions options = new NetClientOptions().setConnectTimeout(10000);
-        netClient=Vertx.vertx().createNetClient(options);
-        messageEvent=new Thread(new MessageEvent(messageReceiverHandler.buffers),"messageEvent");
+        netClient = Vertx.vertx().createNetClient(options);
+        messageEvent = new Thread(new MessageEvent(messageReceiverHandler.buffers), "messageEvent");
         messageEvent.setDaemon(true);
         messageEvent.start();
     }
 
-    private static class INSTANCE{
-        private static AppService instance=new AppService();
+    private static class INSTANCE {
+        private static AppService instance = new AppService();
     }
 
-    public static AppService get(){
+    public static AppService get() {
         return INSTANCE.instance;
     }
 
-    public void doLogin(String account,String psd){
+    public void doLogin(String account, String psd) {
 
         netClient.connect(Constants.DEFAULT_TCP_PORT, Constants.SERVER, event -> {
             if (event.succeeded()) {
 
                 clientSocket = event.result();
                 clientSocket.exceptionHandler(new ExceptionHandler());
-                clientSocket.closeHandler(v->clientSocket=null);
+                clientSocket.closeHandler(v -> clientSocket = null);
                 clientSocket.handler(new MessageReceiverHandler());
                 Map<String, Object> map = new HashMap<>();
                 map.put(Constants.TYPE, "user");
@@ -64,19 +64,20 @@ public class AppService{
         });
     }
 
-    public void loginOut(){
+    public void loginOut() {
         //todo： 做退出登陆操作
         disconnect();
     }
-    public void disconnect(){
-        if(clientSocket!=null){
+
+    public void disconnect() {
+        if (clientSocket != null) {
             clientSocket.close();
         }
         netClient.close();
     }
 
-    public void sendMessage(JsonObject msg){
-        if(clientSocket!=null){
+    public void sendMessage(JsonObject msg) {
+        if (clientSocket != null) {
             clientSocket.write(msg.toString());
             clientSocket.write("\r\n");
         }
@@ -98,27 +99,26 @@ public class AppService{
     /**
      * 接受消息handler
      */
-    private static final class MessageReceiverHandler implements Handler<Buffer>{
+    private static final class MessageReceiverHandler implements Handler<Buffer> {
 
         private BlockingQueue<Buffer> buffers;
         private Buffer tempBuffer;
+        private String tmp = "";
 
         public MessageReceiverHandler() {
             this.buffers = new LinkedBlockingQueue<>();
-            tempBuffer=Buffer.buffer();
+            tempBuffer = Buffer.buffer();
         }
 
         @Override
         public void handle(Buffer buffer) {
             // 处理socket发送过来的消息
-            String key;
-            for (int start=0;start<buffer.length();start++){
-                byte b=buffer.getByte(start);
-                int end=start+1;
-                if(end<=buffer.length()){
-
-                }
-
+            tmp += buffer.toString();
+            int index = tmp.indexOf("\r\n");
+            if (index != -1) {
+                String data = tmp.substring(0, index);
+                tmp = tmp.substring(index + 2);
+                System.out.println("接受=" + data);
             }
         }
 
@@ -130,7 +130,7 @@ public class AppService{
     /**
      * 处理消息分发
      */
-    private static final class MessageEvent implements Runnable{
+    private static final class MessageEvent implements Runnable {
 
         private BlockingQueue<Buffer> queue;
 
@@ -140,9 +140,9 @@ public class AppService{
 
         @Override
         public void run() {
-            while (true){
+            while (true) {
                 try {
-                    Buffer buffer=queue.take();
+                    Buffer buffer = queue.take();
                     //todo
                 } catch (InterruptedException e) {
                     break;
