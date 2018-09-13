@@ -2,6 +2,7 @@ package cn.net.polyglot.controller;
 
 import cn.net.polyglot.config.Constants;
 import cn.net.polyglot.net.AppService;
+import cn.net.polyglot.util.AlertUtil;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -11,13 +12,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.controlsfx.dialog.ExceptionDialog;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,17 +54,49 @@ public class LoginController {
     }
 
     public void doLogin(ActionEvent actionEvent) {
+        String user = account.getText();
+        String password = psd.getText();
+        if(user.isEmpty()||password.isEmpty()){
+            AlertUtil.normalError("用户名和密码不能为空");
+            return;
+        }
         StackPane root = new StackPane();
+        VBox vBox=new VBox();
         ImageView head = new ImageView();
         head.setImage(new Image("icons/users.png"));
         head.setFitWidth(80);
         head.setFitHeight(80);
+        Label text=new Label("正在登录服务器...");
+        text.setFont(new Font(14));
+        vBox.getChildren().addAll(head,text);
+        vBox.setAlignment(Pos.CENTER);
+        root.getChildren().add(vBox);
         root.setAlignment(Pos.CENTER);
-        root.getChildren().add(head);
         stage.getScene().setRoot(root);
-        String user = account.getText();
-        String password = psd.getText();
-        AppService.get().doLogin(user,password);
+
+        AppService.get().doLogin(user,password,success -> {
+            if(success){
+                stage.close();
+                Stage mainStage=new Stage();
+                mainStage.setTitle("易信");
+//                mainStage.setAlwaysOnTop(true);
+                FXMLLoader loader=new FXMLLoader(ClassLoader.getSystemResource("fxml/main.fxml"));
+                try {
+                    Parent parent = loader.load();
+                    MainController controller=loader.getController();
+                    controller.setMainStage(mainStage);
+                    Scene scene = new Scene(parent);
+                    mainStage.setScene(scene);
+                    mainStage.show();
+                } catch (IOException e) {
+                    ExceptionDialog exceptionDialog=new ExceptionDialog(e);
+                    exceptionDialog.show();
+                }
+            }else {
+                stage.getScene().setRoot(loginView);
+                AlertUtil.error("登录","登录失败","用户名和密码不正确");
+            }
+        });
 
     }
 }

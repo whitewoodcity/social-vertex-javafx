@@ -226,6 +226,8 @@
                                                 <Insets>
                                                     <left>15</left>
                                                     <right>15</right>
+                                                    <top>5</top>
+                                                    <bottom>5</bottom>
                                                 </Insets>
                                             </padding>
                                             <hgap>10</hgap>
@@ -254,7 +256,7 @@
                                     </top>
                                     <!--编辑框-->
                                     <center>
-                                        <TextArea styleClass="editorArea">
+                                        <TextArea fx:id="msgEditor" styleClass="editorArea">
                                             <minHeight>150</minHeight>
                                             <wrapText>true</wrapText>
                                             <padding>
@@ -267,6 +269,29 @@
                                             </font>
                                         </TextArea>
                                     </center>
+                                    <!--发送按钮-->
+                                    <bottom>
+                                        <VBox>
+                                            <alignment>
+                                                <Pos fx:value="CENTER_LEFT"/>
+                                            </alignment>
+                                            <padding>
+                                                <Insets topRightBottomLeft="5"/>
+                                            </padding>
+                                            <HBox>
+                                                <alignment>
+                                                    <Pos fx:value="CENTER_RIGHT"/>
+                                                </alignment>
+                                                <padding>
+                                                    <Insets right="20"/>
+                                                </padding>
+                                                <prefHeight>20</prefHeight>
+                                                <Button>
+                                                    发送
+                                                </Button>
+                                            </HBox>
+                                        </VBox>
+                                    </bottom>
                                 </BorderPane>
                             </SplitPane>
                         </center>

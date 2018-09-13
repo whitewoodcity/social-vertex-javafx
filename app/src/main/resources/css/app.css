@@ -125,26 +125,19 @@
     -fx-text-fill: black;
 }
 .editorArea:focused{
-    -fx-background-insets: 0;
     -fx-background-color: white;
-    -fx-border-color: transparent;
-    -fx-border-insets: 0;
-    -fx-border-width: 0;
-    -fx-text-fill: black;
 }
+
 .editorArea .scroll-pane .content{
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-border-insets: 0;
     -fx-background-color: #F5F5F5;
+
 }
 
-.editorArea .scroll-pane .content:focused{
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-border-insets: 0;
-    -fx-background-color: #F5F5F5;
-}
+
+
 .clicked:pressed{
     -fx-background-color: #c0c0c0;
 }

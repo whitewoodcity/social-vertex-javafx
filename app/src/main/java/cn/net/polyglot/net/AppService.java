@@ -1,35 +1,42 @@
 package cn.net.polyglot.net;
 
+import cn.net.polyglot.common.DataManager;
 import cn.net.polyglot.config.Constants;
+import cn.net.polyglot.entity.Contact;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.NetClient;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
+import javafx.application.Platform;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class AppService {
 
+    private Vertx vertx;
     private NetClient netClient;
     private NetSocket clientSocket;
     private MessageReceiverHandler messageReceiverHandler;
     private Thread messageEvent;
+    private Consumer<Boolean> loginCallback;
 
     private AppService() {
         messageReceiverHandler = new MessageReceiverHandler();
         NetClientOptions options = new NetClientOptions().setConnectTimeout(10000);
-        netClient = Vertx.vertx().createNetClient(options);
-        messageEvent = new Thread(new MessageEvent(messageReceiverHandler.buffers), "messageEvent");
-        messageEvent.setDaemon(true);
-        messageEvent.start();
+        vertx=Vertx.vertx();
+        netClient = vertx.createNetClient(options);
+
     }
 
     private static class INSTANCE {
@@ -40,15 +47,18 @@ public class AppService {
         return INSTANCE.instance;
     }
 
-    public void doLogin(String account, String psd) {
-
+    public void doLogin(String account, String psd, Consumer<Boolean> consumer) {
+        this.loginCallback=consumer;
+        messageEvent = new Thread(new MessageEvent(messageReceiverHandler.buffers), "messageEvent");
+        messageEvent.setDaemon(true);
+        messageEvent.start();
         netClient.connect(Constants.DEFAULT_TCP_PORT, Constants.SERVER, event -> {
             if (event.succeeded()) {
 
                 clientSocket = event.result();
                 clientSocket.exceptionHandler(new ExceptionHandler());
                 clientSocket.closeHandler(v -> clientSocket = null);
-                clientSocket.handler(new MessageReceiverHandler());
+                clientSocket.handler(messageReceiverHandler);
                 Map<String, Object> map = new HashMap<>();
                 map.put(Constants.TYPE, "user");
                 map.put(Constants.SUBTYPE, "login");
@@ -74,6 +84,11 @@ public class AppService {
             clientSocket.close();
         }
         netClient.close();
+        vertx.close();
+        if(messageEvent!=null&&messageEvent.isAlive()){
+            messageEvent.interrupt();
+            messageEvent=null;
+        }
     }
 
     public void sendMessage(JsonObject msg) {
@@ -101,13 +116,11 @@ public class AppService {
      */
     private static final class MessageReceiverHandler implements Handler<Buffer> {
 
-        private BlockingQueue<Buffer> buffers;
-        private Buffer tempBuffer;
+        private BlockingQueue<String> buffers;
         private String tmp = "";
 
         public MessageReceiverHandler() {
             this.buffers = new LinkedBlockingQueue<>();
-            tempBuffer = Buffer.buffer();
         }
 
         @Override
@@ -119,10 +132,12 @@ public class AppService {
                 String data = tmp.substring(0, index);
                 tmp = tmp.substring(index + 2);
                 System.out.println("接受=" + data);
+                buffers.offer(data);
+
             }
         }
 
-        public BlockingQueue<Buffer> getBuffers() {
+        public BlockingQueue<String> getBuffers() {
             return buffers;
         }
     }
@@ -130,11 +145,11 @@ public class AppService {
     /**
      * 处理消息分发
      */
-    private static final class MessageEvent implements Runnable {
+    private  final class MessageEvent implements Runnable {
 
-        private BlockingQueue<Buffer> queue;
+        private BlockingQueue<String> queue;
 
-        public MessageEvent(BlockingQueue<Buffer> queue) {
+        public MessageEvent(BlockingQueue<String> queue) {
             this.queue = queue;
         }
 
@@ -142,8 +157,27 @@ public class AppService {
         public void run() {
             while (true) {
                 try {
-                    Buffer buffer = queue.take();
+                    String buffer = queue.take();
                     //todo
+                    JsonObject jsonObject=new JsonObject(buffer);
+                    String type=jsonObject.getString(Constants.TYPE,null);
+                    String subtype=jsonObject.getString(Constants.SUBTYPE,null);
+                    if("user".equals(type)&&"login".equals(subtype)&&loginCallback!=null){
+                        Boolean login=jsonObject.getBoolean("login",false);
+                        JsonArray jsonArray=jsonObject.getJsonArray("friends");
+                        for (int i=0;i<jsonArray.size();i++){
+                            JsonObject jo=jsonArray.getJsonObject(i);
+                            Contact contact=new Contact();
+                            contact.setId(jo.getString("id",null));
+                            contact.setNickName(jo.getString("nickname",null));
+                            DataManager.addContact(contact);
+                        }
+                        Contact contact=new Contact();
+                        contact.setNickName("ggx2018");
+                        contact.setId("ggx2018");
+                        DataManager.addContact(contact);
+                        Platform.runLater(()-> loginCallback.accept(login));
+                    }
                 } catch (InterruptedException e) {
                     break;
                 }

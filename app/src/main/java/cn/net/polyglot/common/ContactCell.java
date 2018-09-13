@@ -1,5 +1,6 @@
 package cn.net.polyglot.common;
 
+import cn.net.polyglot.entity.Contact;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -11,11 +12,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
-public class ContactCell extends ListCell<String> {
+public class ContactCell extends ListCell<Contact> {
 
 
   @Override
-  protected void updateItem(String item, boolean empty) {
+  protected void updateItem(Contact item, boolean empty) {
     super.updateItem(item, empty);
     if (empty) {
       setText(null);
@@ -36,8 +37,8 @@ public class ContactCell extends ListCell<String> {
       content.setHgap(5);
       content.setVgap(5);
       content.setAlignment(Pos.CENTER);
-      Label name = new Label("张三");
-      Label msg = new Label("今天天气真好呀呀呀呀呀呀呀");
+      Label name = new Label(item.getNickName());
+      Label msg = new Label(item.getNewMsg());
       content.add(name, 0, 0);
       content.add(msg, 0, 1);
       root.getChildren().addAll(sp, content);

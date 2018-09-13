@@ -97,6 +97,7 @@
                     -fx-text-fill:red
                 </style>
             </Label>
+
             <Button onAction="#doRegister">
                 <GridPane.rowIndex>4</GridPane.rowIndex>
                 <GridPane.columnIndex>5</GridPane.columnIndex>
