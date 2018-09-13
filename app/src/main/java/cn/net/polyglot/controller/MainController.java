@@ -6,6 +6,7 @@ import cn.net.polyglot.common.MessageCell;
 import cn.net.polyglot.controller.entity.Contact;
 import cn.net.polyglot.controller.entity.Message;
 import cn.net.polyglot.net.AppService;
+import cn.net.polyglot.views.AddFriendView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -89,4 +90,7 @@ public class MainController implements Initializable {
         contact_icon.setImage(normalContact);
     }
 
+    public void showAddFriendPane(MouseEvent mouseEvent) {
+        AddFriendView.show();
+    }
 }

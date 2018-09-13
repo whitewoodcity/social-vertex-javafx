@@ -154,3 +154,12 @@
     -fx-padding: 0;
 }
 
+.addFriendBtn{
+    -fx-background-color: transparent;
+}
+.addFriendBtn:hover{
+    -fx-background-color: #dadada;
+}
+.addFriendBtn:pressed {
+    -fx-background-color: #F5F5F0;
+}

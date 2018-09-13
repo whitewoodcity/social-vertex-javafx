@@ -120,7 +120,7 @@
                         <promptText>搜索</promptText>
                         <focusTraversable>false</focusTraversable>
                     </TextField>
-                    <StackPane>
+                    <StackPane styleClass="addFriendBtn" onMouseClicked="#showAddFriendPane">
                         <GridPane.rowIndex>0</GridPane.rowIndex>
                         <GridPane.columnIndex>1</GridPane.columnIndex>
                         <Rectangle>
