@@ -2,7 +2,7 @@ package cn.net.polyglot.net;
 
 import cn.net.polyglot.common.DataManager;
 import cn.net.polyglot.config.Constants;
-import cn.net.polyglot.entity.Contact;
+import cn.net.polyglot.controller.entity.Contact;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -16,11 +16,9 @@ import javafx.application.Platform;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class AppService {
 

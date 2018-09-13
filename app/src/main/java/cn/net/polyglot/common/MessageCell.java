@@ -1,6 +1,6 @@
 package cn.net.polyglot.common;
 
-import cn.net.polyglot.entity.Message;
+import cn.net.polyglot.controller.entity.Message;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

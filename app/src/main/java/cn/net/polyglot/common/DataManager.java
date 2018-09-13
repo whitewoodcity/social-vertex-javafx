@@ -1,6 +1,6 @@
 package cn.net.polyglot.common;
 
-import cn.net.polyglot.entity.Contact;
+import cn.net.polyglot.controller.entity.Contact;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

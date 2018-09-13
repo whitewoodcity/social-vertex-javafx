@@ -1,4 +1,4 @@
-package cn.net.polyglot.entity;
+package cn.net.polyglot.controller.entity;
 
 public class Message {
 
