@@ -1,14 +1,19 @@
 package cn.net.polyglot.views.mains.states;
 
+import cn.net.polyglot.views.mains.MainViewContext;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-public class NormalViewState implements IMainViewState{
+public class NormalViewState extends MainViewState {
 
     private StackPane root;
+
+    public NormalViewState(MainViewContext context) {
+        super(context);
+    }
 
     @Override
     public Node getView() {

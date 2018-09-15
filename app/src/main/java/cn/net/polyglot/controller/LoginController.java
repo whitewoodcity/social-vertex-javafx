@@ -76,7 +76,6 @@ public class LoginController {
 
         AppService.get().doLogin(user,password,success -> {
             if(success){
-                stage.close();
                 Stage mainStage=new Stage();
                 mainStage.setTitle("易信");
 //                mainStage.setAlwaysOnTop(true);
@@ -89,8 +88,11 @@ public class LoginController {
                     mainStage.setScene(scene);
                     mainStage.show();
                 } catch (IOException e) {
+                    e.printStackTrace();
                     ExceptionDialog exceptionDialog=new ExceptionDialog(e);
                     exceptionDialog.show();
+                }finally {
+                    stage.close();
                 }
             }else {
                 stage.getScene().setRoot(loginView);
