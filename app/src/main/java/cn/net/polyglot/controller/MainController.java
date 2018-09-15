@@ -76,6 +76,6 @@ public class MainController implements Initializable {
     }
 
     public void showAddFriendPane(MouseEvent mouseEvent) {
-        AddFriendView.show();
+        new AddFriendView().show();
     }
 }

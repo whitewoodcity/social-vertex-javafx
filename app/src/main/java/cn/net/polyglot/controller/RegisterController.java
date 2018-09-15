@@ -1,6 +1,7 @@
 package cn.net.polyglot.controller;
 
 import cn.net.polyglot.config.Constants;
+import cn.net.polyglot.net.HttpService;
 import cn.net.polyglot.util.AlertUtil;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
@@ -80,36 +81,29 @@ public class RegisterController {
         root.setAlignment(Pos.CENTER);
         stage.getScene().setRoot(root);
 
-        WebClient client = WebClient.create(Vertx.vertx());
-        client.put(Constants.DEFAULT_HTTP_PORT, Constants.SERVER, "/"+Constants.USER+"/"+Constants.REGISTER)
-                .timeout(30000)
-                .as(BodyCodec.jsonObject())
-                .sendJsonObject(new JsonObject()
+        HttpService.get().put("/"+Constants.USER+"/"+Constants.REGISTER,
+                new JsonObject()
                         .put(Constants.ID, user)
                         .put(Constants.PASSWORD, Util.md5(password))
-                        .put(Constants.VERSION, Constants.CURRENT_VERSION), ar -> {
-                    if (ar.succeeded()) {
-                        HttpResponse<JsonObject> response = ar.result();
-                        System.out.println(response.body());
-                        JsonObject jsonObject=response.body();
-                        if(jsonObject.getBoolean("register",false)){
-                            Platform.runLater(()->{
-                                stage.getScene().setRoot(loginView);
-                            });
-                        }else {
-                            Platform.runLater(()->{
-                                stage.getScene().setRoot(registView);
-                                errorInfo.setText(jsonObject.getString("info",""));
-                            });
-                        }
-
-                    } else {
-                        ar.cause().printStackTrace();
+                        .put(Constants.VERSION, Constants.CURRENT_VERSION),
+                success->{
+                    JsonObject jsonObject=success.body();
+                    if(jsonObject.getBoolean("register",false)){
+                        Platform.runLater(()->{
+                            stage.getScene().setRoot(loginView);
+                        });
+                    }else {
                         Platform.runLater(()->{
                             stage.getScene().setRoot(registView);
-                            errorInfo.setText("注册服务未成功");
+                            errorInfo.setText(jsonObject.getString("info",""));
                         });
                     }
+                },fail->{
+                    fail.cause().printStackTrace();
+                    Platform.runLater(()->{
+                        stage.getScene().setRoot(registView);
+                        errorInfo.setText("注册服务未成功");
+                    });
                 });
     }
 }
