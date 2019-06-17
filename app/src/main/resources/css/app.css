@@ -31,32 +31,7 @@
 #lv .list-cell:pressed{
     -fx-background-color:#c0c0c0 ;
 }
-#msgList{
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-border-insets: 0;
-    -fx-background-insets: 0;
-    -fx-background-color: transparent;
-}
-#msgList .list-cell:even{
-    -fx-background-color: #F5F5F5;
-}
-#msgList .list-cell:odd{
-    -fx-background-color: #F5F5F5;
-}
 
-#msgList .list-cell:empty{
-    -fx-background-color: #F5F5F5;
-}
-#msgList .list-cell:hover{
-    -fx-background-color:#F5F5F5 ;
-}
-#msgList .list-cell:pressed{
-    -fx-background-color:#F5F5F5 ;
-}
-#msgList .list-cell:selected{
-    -fx-background-color:#F5F5F5 ;
-}
 
 
 /*---- scroll bars ----*/
@@ -116,38 +91,6 @@
     -fx-border-color: #c0c0c0;
     -fx-text-fill: black;
 }
-.editorArea{
-    -fx-background-insets: 0;
-    -fx-background-color: #F5F5F5;
-    -fx-border-color: transparent;
-    -fx-border-insets: 0;
-    -fx-border-width: 0;
-    -fx-text-fill: black;
-}
-.editorArea:focused{
-    -fx-background-insets: 0;
-    -fx-background-color: white;
-    -fx-border-color: transparent;
-    -fx-border-insets: 0;
-    -fx-border-width: 0;
-    -fx-text-fill: black;
-}
-.editorArea .scroll-pane .content{
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-border-insets: 0;
-    -fx-background-color: #F5F5F5;
-}
-
-.editorArea .scroll-pane .content:focused{
-    -fx-border-color: transparent;
-    -fx-border-width: 0;
-    -fx-border-insets: 0;
-    -fx-background-color: #F5F5F5;
-}
-.clicked:pressed{
-    -fx-background-color: #c0c0c0;
-}
 
 .copyLabel{
     -fx-background-color: transparent;
@@ -161,3 +104,12 @@
     -fx-padding: 0;
 }
 
+.addFriendBtn{
+    -fx-background-color: transparent;
+}
+.addFriendBtn:hover{
+    -fx-background-color: #dadada;
+}
+.addFriendBtn:pressed {
+    -fx-background-color: #F5F5F0;
+}

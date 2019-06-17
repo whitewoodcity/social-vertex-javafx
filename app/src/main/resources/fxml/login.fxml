@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
 <?import javafx.geometry.Pos?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 <?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -37,9 +36,9 @@
     </top>
     <center>
         <GridPane>
-           <alignment>
-               <Pos fx:value="TOP_CENTER"/>
-           </alignment>
+            <alignment>
+                <Pos fx:value="TOP_CENTER"/>
+            </alignment>
             <hgap>10</hgap>
             <vgap>10</vgap>
 
@@ -61,6 +60,7 @@
                 <GridPane.columnSpan>2</GridPane.columnSpan>
                 <prefWidth>150</prefWidth>
                 <promptText>输入帐号或邮箱</promptText>
+                ggx2018
             </TextField>
             <PasswordField fx:id="psd">
                 <GridPane.rowIndex>2</GridPane.rowIndex>
@@ -68,6 +68,7 @@
                 <GridPane.columnSpan>2</GridPane.columnSpan>
                 <prefWidth>150</prefWidth>
                 <promptText>输入密码</promptText>
+                guanguoxiang1
             </PasswordField>
 
             <Hyperlink onAction="#doRegister">

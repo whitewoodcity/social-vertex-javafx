@@ -1,6 +1,8 @@
 package cn.net.polyglot.controller;
 
 import cn.net.polyglot.config.Constants;
+import cn.net.polyglot.net.HttpService;
+import cn.net.polyglot.util.AlertUtil;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -22,6 +24,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -57,45 +61,49 @@ public class RegisterController {
     }
 
     public void doRegister(ActionEvent actionEvent) {
+        String user = account.getText();
+        String password = psd.getText();
+        if(user.isEmpty()||password.isEmpty()){
+            errorInfo.setText("请填写用户名和密码");
+            return;
+        }
         StackPane root = new StackPane();
+        VBox vBox=new VBox();
         ImageView head = new ImageView();
         head.setImage(new Image("icons/users.png"));
         head.setFitWidth(80);
         head.setFitHeight(80);
+        Label text=new Label("注册中请稍后...");
+        text.setFont(new Font(14));
+        vBox.getChildren().addAll(head,text);
+        vBox.setAlignment(Pos.CENTER);
+        root.getChildren().add(vBox);
         root.setAlignment(Pos.CENTER);
-        root.getChildren().add(head);
         stage.getScene().setRoot(root);
-        String user = account.getText();
-        String password = psd.getText();
-        WebClient client = WebClient.create(Vertx.vertx());
-        client.put(Constants.DEFAULT_HTTP_PORT, Constants.SERVER, "/"+Constants.USER+"/"+Constants.REGISTER)
-                .timeout(30000)
-                .as(BodyCodec.jsonObject())
-                .sendJsonObject(new JsonObject()
+
+        HttpService.get().put("/"+Constants.USER+"/"+Constants.REGISTER,
+                new JsonObject()
                         .put(Constants.ID, user)
                         .put(Constants.PASSWORD, Util.md5(password))
-                        .put(Constants.VERSION, Constants.CURRENT_VERSION), ar -> {
-                    if (ar.succeeded()) {
-                        HttpResponse<JsonObject> response = ar.result();
-                        System.out.println(response.body());
-                        JsonObject jsonObject=response.body();
-                        if(jsonObject.getBoolean("register",false)){
-                            Platform.runLater(()->{
-                                stage.getScene().setRoot(loginView);
-                            });
-                        }else {
-                            Platform.runLater(()->{
-                                stage.getScene().setRoot(registView);
-                                errorInfo.setText(jsonObject.getString("info",""));
-                            });
-                        }
-
-                    } else {
-                        ar.cause().printStackTrace();
+                        .put(Constants.VERSION, Constants.CURRENT_VERSION),
+                success->{
+                    JsonObject jsonObject=success.body();
+                    if(jsonObject.getBoolean("register",false)){
+                        Platform.runLater(()->{
+                            stage.getScene().setRoot(loginView);
+                        });
+                    }else {
                         Platform.runLater(()->{
                             stage.getScene().setRoot(registView);
+                            errorInfo.setText(jsonObject.getString("info",""));
                         });
                     }
+                },fail->{
+                    fail.cause().printStackTrace();
+                    Platform.runLater(()->{
+                        stage.getScene().setRoot(registView);
+                        errorInfo.setText("注册服务未成功");
+                    });
                 });
     }
 }
