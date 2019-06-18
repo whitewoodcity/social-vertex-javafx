@@ -17,9 +17,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="registView" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.net.polyglot.controller.RegisterController">
+<BorderPane fx:id="registView" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cn.net.polyglot.controller.RegisterController">
     <stylesheets>
-        <URL value="@/css/register.css" />
+        <URL value="@/css/register.css"/>
     </stylesheets>
     <top>
         <StackPane>
@@ -30,13 +31,13 @@
                 <maxWidth>20</maxWidth>
                 <maxHeight>20</maxHeight>
                 <padding>
-                    <Insets topRightBottomLeft="5" />
+                    <Insets topRightBottomLeft="5"/>
                 </padding>
                 <StackPane.alignment>
-                    <Pos fx:value="CENTER_LEFT" />
+                    <Pos fx:value="CENTER_LEFT"/>
                 </StackPane.alignment>
                 <ImageView>
-                    <Image url="@/icons/back.png" />
+                    <Image url="@/icons/back.png"/>
                     <fitHeight>20</fitHeight>
                     <fitWidth>20</fitWidth>
                 </ImageView>
@@ -45,7 +46,7 @@
             <Text>
                 <text>注册帐号</text>
                 <StackPane.alignment>
-                    <Pos fx:value="CENTER" />
+                    <Pos fx:value="CENTER"/>
                 </StackPane.alignment>
                 <font>
                     <Font>
@@ -57,9 +58,9 @@
     </top>
     <center>
         <GridPane>
-           <alignment>
-               <Pos fx:value="CENTER" />
-           </alignment>
+            <alignment>
+                <Pos fx:value="CENTER"/>
+            </alignment>
             <hgap>10</hgap>
             <vgap>10</vgap>
             <Label>
@@ -103,27 +104,29 @@
                 <GridPane.columnIndex>5</GridPane.columnIndex>
                 <text>注册</text>
             </Button>
-         <Label text="确认密码：" GridPane.rowIndex="3" />
-         <PasswordField fx:id="psd2" prefWidth="150" promptText="输入确认密码" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-         <Label text="昵称：" GridPane.rowIndex="4" />
-         <TextField fx:id="nkn" prefWidth="150" promptText="输入昵称" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-         <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-            <ColumnConstraints />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
+            <Label text="确认密码：" GridPane.rowIndex="3"/>
+            <PasswordField fx:id="psd2" prefWidth="150" promptText="输入确认密码" GridPane.columnIndex="1"
+                           GridPane.columnSpan="2" GridPane.rowIndex="3"/>
+            <Label text="昵称：" GridPane.rowIndex="4"/>
+            <TextField fx:id="nkn" prefWidth="150" promptText="输入昵称" GridPane.columnIndex="1" GridPane.columnSpan="2"
+                       GridPane.rowIndex="4"/>
+            <columnConstraints>
+                <ColumnConstraints/>
+                <ColumnConstraints/>
+                <ColumnConstraints/>
+                <ColumnConstraints/>
+                <ColumnConstraints/>
+                <ColumnConstraints/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                <RowConstraints/>
+                <RowConstraints/>
+            </rowConstraints>
         </GridPane>
     </center>
 

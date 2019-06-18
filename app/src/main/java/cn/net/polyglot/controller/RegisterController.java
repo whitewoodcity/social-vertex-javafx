@@ -51,10 +51,10 @@ public class RegisterController {
     }
 
     public void doBack(MouseEvent mouseEvent) {
-        FXMLLoader loader=new FXMLLoader(ClassLoader.getSystemResource("fxml/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("fxml/login.fxml"));
         try {
-            Parent parent=loader.load();
-            LoginController controller=loader.getController();
+            Parent parent = loader.load();
+            LoginController controller = loader.getController();
             controller.setStage(stage);
             stage.getScene().setRoot(parent);
         } catch (IOException e) {
@@ -67,26 +67,25 @@ public class RegisterController {
         String password = psd.getText();
         String password2 = psd2.getText();
         String nickname = nkn.getText();
-        if(user.isEmpty()||password.isEmpty()){
+        if (user.isEmpty() || password.isEmpty()) {
             errorInfo.setText("请填写用户名和密码");
             return;
         }
         StackPane root = new StackPane();
-        VBox vBox=new VBox();
+        VBox vBox = new VBox();
         ImageView head = new ImageView();
         head.setImage(new Image("icons/users.png"));
         head.setFitWidth(80);
         head.setFitHeight(80);
-        Label text=new Label("注册中请稍后...");
+        Label text = new Label("注册中请稍后...");
         text.setFont(new Font(14));
-        vBox.getChildren().addAll(head,text);
+        vBox.getChildren().addAll(head, text);
         vBox.setAlignment(Pos.CENTER);
         root.getChildren().add(vBox);
         root.setAlignment(Pos.CENTER);
         stage.getScene().setRoot(root);
 
-        HttpService.get().put("/",
-                new JsonObject()
+        HttpService.get().put(new JsonObject()
                         .put(Constants.TYPE, Constants.USER)
                         .put(Constants.ID, user)
                         .put(Constants.SUBTYPE, Constants.REGISTER)
@@ -94,23 +93,20 @@ public class RegisterController {
                         .put(Constants.PASSWORD2, Util.md5(password2))
                         .put(Constants.NICKNAME, Util.md5(nickname))
                         .put(Constants.VERSION, Constants.CURRENT_VERSION),
-                success->{
-                    JsonObject jsonObject=success.body();
-                    System.out.println("-------"+ jsonObject.toString());
+                success -> {
+                    JsonObject jsonObject = success.body();
 
-                    if(jsonObject.getBoolean("register",false)){
-                        Platform.runLater(()->{
-                            stage.getScene().setRoot(loginView);
-                        });
-                    }else {
-                        Platform.runLater(()->{
+                    if (jsonObject.getBoolean("register", false)) {
+                        Platform.runLater(() -> stage.getScene().setRoot(loginView));
+                    } else {
+                        Platform.runLater(() -> {
                             stage.getScene().setRoot(registView);
-                            errorInfo.setText(jsonObject.getString("info",""));
+                            errorInfo.setText(jsonObject.getString("info", ""));
                         });
                     }
-                },fail->{
+                }, fail -> {
                     fail.cause().printStackTrace();
-                    Platform.runLater(()->{
+                    Platform.runLater(() -> {
                         stage.getScene().setRoot(registView);
                         errorInfo.setText("注册服务未成功");
                     });

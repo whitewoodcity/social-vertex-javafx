@@ -2,12 +2,14 @@ package cn.net.polyglot.controller;
 
 import cn.net.polyglot.config.Constants;
 import cn.net.polyglot.net.AppService;
+import cn.net.polyglot.net.HttpService;
 import cn.net.polyglot.util.AlertUtil;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -56,49 +58,83 @@ public class LoginController {
     public void doLogin(ActionEvent actionEvent) {
         String user = account.getText();
         String password = psd.getText();
-        if(user.isEmpty()||password.isEmpty()){
+        if (user.isEmpty() || password.isEmpty()) {
             AlertUtil.normalError("用户名和密码不能为空");
             return;
         }
         StackPane root = new StackPane();
-        VBox vBox=new VBox();
+        VBox vBox = new VBox();
         ImageView head = new ImageView();
         head.setImage(new Image("icons/users.png"));
         head.setFitWidth(80);
         head.setFitHeight(80);
-        Label text=new Label("正在登录服务器...");
+        Label text = new Label("正在登录服务器...");
         text.setFont(new Font(14));
-        vBox.getChildren().addAll(head,text);
+        vBox.getChildren().addAll(head, text);
         vBox.setAlignment(Pos.CENTER);
         root.getChildren().add(vBox);
         root.setAlignment(Pos.CENTER);
         stage.getScene().setRoot(root);
 
-        AppService.get().doLogin(user,password,success -> {
-            if(success){
-                Stage mainStage=new Stage();
-                mainStage.setTitle("易信");
+
+        HttpService.get().put(new JsonObject()
+                        .put(Constants.TYPE, Constants.USER)
+                        .put(Constants.SUBTYPE, Constants.LOGIN)
+                        .put(Constants.ID, user)
+                        .put(Constants.PASSWORD, Util.md5(password))
+                        .put(Constants.VERSION, Constants.CURRENT_VERSION),
+                success -> Platform.runLater(() -> {
+                    Stage mainStage = new Stage();
+                    mainStage.setTitle("易信");
 //                mainStage.setAlwaysOnTop(true);
-                FXMLLoader loader=new FXMLLoader(ClassLoader.getSystemResource("fxml/main.fxml"));
-                try {
-                    Parent parent = loader.load();
-                    MainController controller=loader.getController();
-                    controller.setMainStage(mainStage);
-                    Scene scene = new Scene(parent);
-                    mainStage.setScene(scene);
-                    mainStage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    ExceptionDialog exceptionDialog=new ExceptionDialog(e);
-                    exceptionDialog.show();
-                }finally {
-                    stage.close();
-                }
-            }else {
-                stage.getScene().setRoot(loginView);
-                AlertUtil.error("登录","登录失败","用户名和密码不正确");
-            }
-        });
+                    FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("fxml/main.fxml"));
+                    try {
+                        Parent parent = loader.load();
+                        MainController controller = loader.getController();
+                        controller.setMainStage(mainStage);
+                        Scene scene = new Scene(parent);
+                        mainStage.setScene(scene);
+                        mainStage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        ExceptionDialog exceptionDialog = new ExceptionDialog(e);
+                        exceptionDialog.show();
+                    } finally {
+                        stage.close();
+                    }
+                }), fail -> {
+                    fail.cause().printStackTrace();
+                    Platform.runLater(() -> {
+                        stage.getScene().setRoot(loginView);
+                        AlertUtil.error("登录", "登录失败", "用户名和密码不正确");
+                    });
+                });
+//
+//        AppService.get().doLogin(user,password,success -> {
+//            if(success){
+//                Stage mainStage=new Stage();
+//                mainStage.setTitle("易信");
+////                mainStage.setAlwaysOnTop(true);
+//                FXMLLoader loader=new FXMLLoader(ClassLoader.getSystemResource("fxml/main.fxml"));
+//                try {
+//                    Parent parent = loader.load();
+//                    MainController controller=loader.getController();
+//                    controller.setMainStage(mainStage);
+//                    Scene scene = new Scene(parent);
+//                    mainStage.setScene(scene);
+//                    mainStage.show();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                    ExceptionDialog exceptionDialog=new ExceptionDialog(e);
+//                    exceptionDialog.show();
+//                }finally {
+//                    stage.close();
+//                }
+//            }else {
+//                stage.getScene().setRoot(loginView);
+//                AlertUtil.error("登录","登录失败","用户名和密码不正确");
+//            }
+//        });
 
     }
 }
