@@ -2,7 +2,7 @@ package cn.net.polyglot.config;
 
 public class Constants {
 
-  public static final double CURRENT_VERSION = 0.2;
+  public static final double CURRENT_VERSION = 0.4;
 
   public static final String SERVER = "polyglot.net.cn";
   public static final int DEFAULT_HTTP_PORT = 80;
@@ -28,6 +28,7 @@ public class Constants {
   public static final String NICKNAME = "nickname";
   public static final String ID = "id";
   public static final String PASSWORD = "password";
+  public static final String PASSWORD2 = "password2";
   public static final String DIR = "dir";
   public static final String HOST = "host";
   public static final String BODY = "body";

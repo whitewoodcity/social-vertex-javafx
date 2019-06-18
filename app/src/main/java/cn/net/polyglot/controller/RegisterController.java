@@ -35,6 +35,8 @@ public class RegisterController {
 
     public TextField account;
     public PasswordField psd;
+    public PasswordField psd2;
+    public TextField nkn;
     public BorderPane registView;
     private BorderPane loginView;
     public Label errorInfo;
@@ -63,6 +65,8 @@ public class RegisterController {
     public void doRegister(ActionEvent actionEvent) {
         String user = account.getText();
         String password = psd.getText();
+        String password2 = psd2.getText();
+        String nickname = nkn.getText();
         if(user.isEmpty()||password.isEmpty()){
             errorInfo.setText("请填写用户名和密码");
             return;
@@ -81,13 +85,19 @@ public class RegisterController {
         root.setAlignment(Pos.CENTER);
         stage.getScene().setRoot(root);
 
-        HttpService.get().put("/"+Constants.USER+"/"+Constants.REGISTER,
+        HttpService.get().put("/",
                 new JsonObject()
+                        .put(Constants.TYPE, Constants.USER)
                         .put(Constants.ID, user)
+                        .put(Constants.SUBTYPE, Constants.REGISTER)
                         .put(Constants.PASSWORD, Util.md5(password))
+                        .put(Constants.PASSWORD2, Util.md5(password2))
+                        .put(Constants.NICKNAME, Util.md5(nickname))
                         .put(Constants.VERSION, Constants.CURRENT_VERSION),
                 success->{
                     JsonObject jsonObject=success.body();
+                    System.out.println("-------"+ jsonObject.toString());
+
                     if(jsonObject.getBoolean("register",false)){
                         Platform.runLater(()->{
                             stage.getScene().setRoot(loginView);
