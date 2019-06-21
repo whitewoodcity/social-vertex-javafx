@@ -60,7 +60,7 @@
                 <GridPane.columnSpan>2</GridPane.columnSpan>
                 <prefWidth>150</prefWidth>
                 <promptText>输入帐号或邮箱</promptText>
-                ggx2018
+                carlos
             </TextField>
             <PasswordField fx:id="psd">
                 <GridPane.rowIndex>2</GridPane.rowIndex>
@@ -68,7 +68,7 @@
                 <GridPane.columnSpan>2</GridPane.columnSpan>
                 <prefWidth>150</prefWidth>
                 <promptText>输入密码</promptText>
-                guanguoxiang1
+                123
             </PasswordField>
 
             <Hyperlink onAction="#doRegister">

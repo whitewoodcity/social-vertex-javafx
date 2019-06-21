@@ -1,11 +1,14 @@
 package cn.net.polyglot.controller;
 
+import cn.net.polyglot.common.DataManager;
 import cn.net.polyglot.config.Constants;
+import cn.net.polyglot.controller.entity.Contact;
 import cn.net.polyglot.net.AppService;
 import cn.net.polyglot.net.HttpService;
 import cn.net.polyglot.util.AlertUtil;
 import cn.net.polyglot.util.Util;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.net.NetClientOptions;
 import io.vertx.core.net.NetSocket;
@@ -84,9 +87,28 @@ public class LoginController {
                         .put(Constants.PASSWORD, Util.md5(password))
                         .put(Constants.VERSION, Constants.CURRENT_VERSION),
                 success -> Platform.runLater(() -> {
+                    System.out.println("login response data:" + success.body().toString());
+                    Boolean login=success.body().getBoolean("login",false);
+                    if (!login) {
+                        Platform.runLater(() -> {
+                            stage.getScene().setRoot(loginView);
+                            AlertUtil.error("登录", "登录失败", "用户名和密码不正确");
+                        });
+                        return;
+                    }
                     Stage mainStage = new Stage();
                     mainStage.setTitle("易信");
 //                mainStage.setAlwaysOnTop(true);
+
+                    JsonArray jsonArray=success.body().getJsonArray("friends");
+                    for (int i=0;i<jsonArray.size();i++){
+                        JsonObject jo=jsonArray.getJsonObject(i);
+                        Contact contact=new Contact();
+                        contact.setId(jo.getString("id",null));
+                        contact.setNickName(jo.getString("nickname",null));
+                        DataManager.addContact(contact);
+                    }
+
                     FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("fxml/main.fxml"));
                     try {
                         Parent parent = loader.load();
