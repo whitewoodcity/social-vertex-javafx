@@ -1,4 +1,4 @@
-# Social Vertex Desktop
+# Social Vertex JavaFX
 基于JavaFx的IM聊天工具
 
 # 构建环境
