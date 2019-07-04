@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'com.gluonhq.client-gradle-plugin' version '0.0.10'
 }
 
 group 'cn.net.polyglot'
