@@ -6,6 +6,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 rootProject.name = 'social-vertex-desktop'
 include 'app'
-
