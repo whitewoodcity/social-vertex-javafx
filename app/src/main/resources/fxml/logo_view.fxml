@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Pos?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml">
+
+    <Label>
+        <alignment>
+            <Pos fx:value="CENTER"/>
+        </alignment>
+        <text>开源聊天室</text>
+        <font>
+            <Font>
+                <size>35</size>
+            </Font>
+        </font>
+    </Label>
+
+</StackPane>

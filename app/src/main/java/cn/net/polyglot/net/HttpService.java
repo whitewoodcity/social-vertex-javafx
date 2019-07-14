@@ -1,6 +1,7 @@
 package cn.net.polyglot.net;
 
 import cn.net.polyglot.config.Constants;
+import cn.net.polyglot.util.Util;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -8,6 +9,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.HttpResponse;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.codec.BodyCodec;
+import javafx.application.Platform;
 
 import java.util.function.Consumer;
 
@@ -66,6 +68,36 @@ public class HttpService {
                         if (fail != null) fail.accept(ar);
                     }
                 });
+    }
+
+    public void doLogin(String account,String password,
+                        Consumer<HttpResponse<JsonObject>> success,
+                        Runnable fail){
+       JsonObject jo= new JsonObject()
+                .put(Constants.TYPE, Constants.USER)
+                .put(Constants.SUBTYPE, Constants.LOGIN)
+                .put(Constants.ID, account)
+                .put(Constants.PASSWORD, Util.md5(password))
+                .put(Constants.VERSION, Constants.CURRENT_VERSION);
+       if(webClient==null){
+           return;
+       }
+       webClient.put(PORT,HTTP_HOST,"")
+               .timeout(30000)
+               .as(BodyCodec.jsonObject())
+               .sendJsonObject(jo,ar->{
+                   if(ar.succeeded()){
+                       if(success!=null){
+                           Platform.runLater(()-> success.accept(ar.result()));
+                       }
+                   }else {
+                       ar.cause().printStackTrace();
+                       if(fail!=null){
+                           Platform.runLater(fail);
+                       }
+                   }
+               });
+
     }
 
 }

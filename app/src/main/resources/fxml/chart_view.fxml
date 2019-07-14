@@ -13,7 +13,6 @@
 <?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cn.net.polyglot.controller.ChartPaneController"
             prefHeight="400.0" prefWidth="600.0">
     <stylesheets>
         <URL value="@/css/chart_view.css"/>

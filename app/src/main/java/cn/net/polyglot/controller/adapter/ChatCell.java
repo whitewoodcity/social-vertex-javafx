@@ -1,4 +1,4 @@
-package cn.net.polyglot.common;
+package cn.net.polyglot.controller.adapter;
 
 import cn.net.polyglot.controller.entity.Message;
 import javafx.geometry.Insets;
@@ -13,11 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
-public class MessageCell extends ListCell<Message> {
+public class ChatCell extends ListCell<Message> {
 
     private TextArea ta;
 
-    public MessageCell() {
+    public ChatCell() {
         this.ta = new TextArea();
         ta.setEditable(false);
         ta.setWrapText(true);

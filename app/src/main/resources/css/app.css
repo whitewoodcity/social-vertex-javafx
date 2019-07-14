@@ -81,9 +81,43 @@
     -fx-background-color: #00000066;
 }
 
-
-#msg_icon:hover{
-    -fx-background-image: url(/icons/contact_32.png);
+#ic_msg > .radio{
+    -fx-region-background: null;
+}
+#ic_msg > .radio .dot{
+    -fx-region-background:null;
+}
+#ic_contact .radio{
+    -fx-region-background: null;
+}
+#ic_contact .radio .dot{
+    -fx-region-background:null;
+}
+#ic_msg{
+    -fx-background-image: url("/icons/msg_32.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#ic_msg:selected{
+    -fx-background-image: url("/icons/msg_enter_32.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#ic_contact{
+    -fx-background-image: url("/icons/contact_32.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#ic_contact:selected{
+    -fx-background-image: url("/icons/contact_enter_32.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#contact:pressed{
+    -fx-background-color: #000000;
+}
+#msg:pressed{
+    -fx-background-color: #000000;
 }
 
 .text-field{

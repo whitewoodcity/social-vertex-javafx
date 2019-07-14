@@ -13,8 +13,7 @@
 <?import java.net.URL?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:id="loginView"
-            fx:controller="cn.net.polyglot.controller.LoginController">
+            fx:id="loginView">
     <stylesheets>
         <URL value="@/css/login.css"/>
     </stylesheets>
@@ -60,7 +59,7 @@
                 <GridPane.columnSpan>2</GridPane.columnSpan>
                 <prefWidth>150</prefWidth>
                 <promptText>输入帐号或邮箱</promptText>
-                carlos
+                ggx2019
             </TextField>
             <PasswordField fx:id="psd">
                 <GridPane.rowIndex>2</GridPane.rowIndex>
@@ -68,7 +67,7 @@
                 <GridPane.columnSpan>2</GridPane.columnSpan>
                 <prefWidth>150</prefWidth>
                 <promptText>输入密码</promptText>
-                123
+                ggx2019
             </PasswordField>
 
             <Hyperlink onAction="#doRegister">

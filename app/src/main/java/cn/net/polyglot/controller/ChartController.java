@@ -1,6 +1,8 @@
 package cn.net.polyglot.controller;
 
-import cn.net.polyglot.common.MessageCell;
+import cn.net.polyglot.common.AbsController;
+import cn.net.polyglot.common.Layout;
+import cn.net.polyglot.controller.adapter.ChatCell;
 import cn.net.polyglot.controller.entity.Message;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,11 +11,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ChartPaneController implements Initializable {
+@Layout("fxml/chart_view.fxml")
+public class ChartController extends AbsController {
     public Text name;
     public ListView<Message> msgList;
     public TextArea msgEditor;
@@ -30,9 +34,11 @@ public class ChartPaneController implements Initializable {
 
     );
 
+
+
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        msgList.setCellFactory(param -> new MessageCell());
+    protected void onCreated(URL location, ResourceBundle resources) {
+        msgList.setCellFactory(param -> new ChatCell());
         msgList.setEditable(false);
         msgList.setItems(msg);
         msgEditor.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -41,4 +47,5 @@ public class ChartPaneController implements Initializable {
 
         });
     }
+
 }

@@ -9,9 +9,10 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import java.net.URL?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.RadioButton?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cn.net.polyglot.controller.MainController"
             prefWidth="900"
             prefHeight="600">
     <stylesheets>
@@ -31,6 +32,11 @@
                     -fx-background-color:#2A2829;
                 </style>
                 <prefWidth>50</prefWidth>
+
+                <fx:define>
+                    <ToggleGroup fx:id="gp"/>
+                </fx:define>
+
                 <StackPane>
                     <GridPane.rowIndex>0</GridPane.rowIndex>
                     <GridPane.columnIndex>0</GridPane.columnIndex>
@@ -45,6 +51,7 @@
                             <offsetY>2.0</offsetY>
                         </DropShadow>
                     </effect>
+
                     <ImageView>
                         <Image backgroundLoading="true" url="@/icons/users.png"/>
                         <fitWidth>30</fitWidth>
@@ -57,36 +64,33 @@
                     </ImageView>
                 </StackPane>
 
-                <StackPane onMouseEntered="#handlerMsgMouseEntered" onMouseExited="#handlerMsgMouseExit">
+                <StackPane fx:id="msg" onMouseClicked="#changeToMsg">
                     <GridPane.rowIndex>1</GridPane.rowIndex>
                     <GridPane.columnIndex>0</GridPane.columnIndex>
-                    <prefWidth>30</prefWidth>
-                    <prefHeight>30</prefHeight>
+                    <prefWidth>50</prefWidth>
+                    <prefHeight>50</prefHeight>
                     <padding>
                         <Insets topRightBottomLeft="5"/>
                     </padding>
-
-                    <ImageView fx:id="msg_icon">
-                        <Image url="@/icons/msg_32.png"/>
-                        <fitHeight>20</fitHeight>
-                        <fitWidth>20</fitWidth>
-                    </ImageView>
+                    <RadioButton fx:id="ic_msg" selected="true" toggleGroup="$gp">
+                        <minWidth>50</minWidth>
+                        <minHeight>50</minHeight>
+                    </RadioButton>
                 </StackPane>
 
 
-                <StackPane onMouseEntered="#handlerContactMouseEntered" onMouseExited="#handlerContactMouseExit">
+                <StackPane fx:id="contact" onMouseClicked="#changeToContact">
                     <GridPane.rowIndex>2</GridPane.rowIndex>
                     <GridPane.columnIndex>0</GridPane.columnIndex>
-                    <prefWidth>30</prefWidth>
-                    <prefHeight>30</prefHeight>
+                    <prefWidth>50</prefWidth>
+                    <prefHeight>50</prefHeight>
                     <padding>
                         <Insets topRightBottomLeft="5"/>
                     </padding>
-                    <ImageView fx:id="contact_icon">
-                        <Image url="@/icons/contact_32.png"/>
-                        <fitHeight>20</fitHeight>
-                        <fitWidth>20</fitWidth>
-                    </ImageView>
+                    <RadioButton fx:id="ic_contact" toggleGroup="$gp">
+                        <minWidth>50</minWidth>
+                        <minHeight>50</minHeight>
+                    </RadioButton>
                 </StackPane>
             </GridPane>
             <VBox fx:id="list">
@@ -130,6 +134,10 @@
                 </GridPane>
 
                 <ListView fx:id="lv" prefHeight="${list.height}">
+                    <focusTraversable>false</focusTraversable>
+
+                </ListView>
+                <ListView fx:id="lvContact" managed="false" visible="false" prefHeight="${list.height}">
                     <focusTraversable>false</focusTraversable>
 
                 </ListView>

@@ -18,14 +18,11 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    primaryStage.setTitle("易信");
-    primaryStage.setAlwaysOnTop(true);
+    primaryStage.setTitle("聊天室");
     primaryStage.setResizable(false);
-    FXMLLoader loader=new FXMLLoader(ClassLoader.getSystemResource("fxml/login.fxml"));
-    Parent parent = loader.load();
-    LoginController controller=loader.getController();
+    LoginController controller=new LoginController();
     controller.setStage(primaryStage);
-    Scene scene = new Scene(parent,400,300);
+    Scene scene = new Scene(controller.getRoot(),400,300);
     primaryStage.setScene(scene);
     primaryStage.show();
   }

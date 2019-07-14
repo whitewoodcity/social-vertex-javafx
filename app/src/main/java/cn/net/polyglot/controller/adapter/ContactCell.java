@@ -1,4 +1,4 @@
-package cn.net.polyglot.common;
+package cn.net.polyglot.controller.adapter;
 
 import cn.net.polyglot.controller.entity.Contact;
 import javafx.geometry.Insets;

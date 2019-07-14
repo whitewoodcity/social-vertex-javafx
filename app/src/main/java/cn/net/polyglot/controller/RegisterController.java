@@ -1,5 +1,7 @@
 package cn.net.polyglot.controller;
 
+import cn.net.polyglot.common.AbsController;
+import cn.net.polyglot.common.Layout;
 import cn.net.polyglot.config.Constants;
 import cn.net.polyglot.net.HttpService;
 import cn.net.polyglot.util.AlertUtil;
@@ -31,7 +33,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-public class RegisterController {
+@Layout("fxml/register.fxml")
+public class RegisterController extends AbsController {
 
     public TextField account;
     public PasswordField psd;
@@ -51,15 +54,8 @@ public class RegisterController {
     }
 
     public void doBack(MouseEvent mouseEvent) {
-        FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("fxml/login.fxml"));
-        try {
-            Parent parent = loader.load();
-            LoginController controller = loader.getController();
-            controller.setStage(stage);
-            stage.getScene().setRoot(parent);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        LoginController controller=new LoginController();
+        stage.getScene().setRoot(controller.getRoot());
     }
 
     public void doRegister(ActionEvent actionEvent) {

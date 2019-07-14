@@ -1,81 +1,85 @@
 package cn.net.polyglot.controller;
 
-import cn.net.polyglot.common.ContactCell;
+import cn.net.polyglot.common.AbsController;
 import cn.net.polyglot.common.DataManager;
-import cn.net.polyglot.common.MessageCell;
+import cn.net.polyglot.common.Layout;
+import cn.net.polyglot.controller.adapter.ContactCell;
+import cn.net.polyglot.controller.adapter.MessageCell;
 import cn.net.polyglot.controller.entity.Contact;
-import cn.net.polyglot.controller.entity.Message;
-import cn.net.polyglot.net.AppService;
+import cn.net.polyglot.controller.entity.Notify;
 import cn.net.polyglot.views.AddFriendView;
-import cn.net.polyglot.views.mains.MainViewContext;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+@Layout("fxml/main.fxml")
+public class MainController extends AbsController {
 
+    private static final int MSG_PANE=1;
+    private static final int CONTACT_PANE=2;
 
-    public ImageView msg_icon;
-    public ImageView contact_icon;
-    public ListView<Contact> lv;
+    public ListView<Notify> lv;
+    public ListView<Contact> lvContact;
     public StackPane mainView;
 
-
-    private Image normalMsg=new Image("icons/msg_32.png");
-    private Image enterMsg=new Image("icons/msg_enter_32.png");
-    private Image normalContact=new Image("icons/contact_32.png");
-    private Image enterContact=new Image("icons/contact_enter_32.png");
+    private LogoController logoController;
+    private ChartController chartController;
 
 
-    private Stage mainStage;
-    private MainViewContext mainViewContext;
 
-    public void setMainStage(Stage mainStage) {
-        this.mainStage = mainStage;
-        this.mainStage.setOnCloseRequest(event -> {
-            AppService.get().disconnect();
+    private int currentPane=MSG_PANE;
+
+
+
+    @Override
+    protected void onCreated(URL location, ResourceBundle resources) {
+        lv.setCellFactory(param -> new MessageCell());
+        lv.setItems(DataManager.get().getNotifies());
+        lvContact.setCellFactory(param -> new ContactCell());
+        lvContact.setItems(DataManager.get().getContacts());
+        logoController=new LogoController();
+        chartController=new ChartController();
+        mainView.getChildren().add(logoController.getRoot());
+
+        lv.setOnMouseClicked(event -> {
+            Notify notify=lv.getSelectionModel().getSelectedItem();
+        });
+        lvContact.setOnMouseClicked(event -> {
+            Contact contact=lvContact.getSelectionModel().getSelectedItem();
+
         });
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        lv.setCellFactory(param -> new ContactCell());
-        lv.setItems(DataManager.getContacts());
-        mainViewContext=new MainViewContext();
-        mainViewContext.applyChartView();
-        mainView.getChildren().add(mainViewContext.getView());
-
-    }
-
-    public void handlerMsgMouseEntered(MouseEvent mouseEvent) {
-        msg_icon.setImage(enterMsg);
-    }
-
-    public void handlerMsgMouseExit(MouseEvent mouseEvent) {
-        msg_icon.setImage(normalMsg);
-    }
-
-    public void handlerContactMouseEntered(MouseEvent mouseEvent) {
-        contact_icon.setImage(enterContact);
-    }
-
-    public void handlerContactMouseExit(MouseEvent mouseEvent) {
-        contact_icon.setImage(normalContact);
-    }
 
     public void showAddFriendPane(MouseEvent mouseEvent) {
         new AddFriendView().show();
+    }
+
+    public void changeToMsg(MouseEvent mouseEvent) {
+        if(currentPane==MSG_PANE){
+            return;
+        }
+        currentPane=MSG_PANE;
+        lv.setManaged(true);
+        lv.setVisible(true);
+        lvContact.setVisible(false);
+        lvContact.setManaged(false);
+    }
+
+    public void changeToContact(MouseEvent mouseEvent) {
+        if(currentPane==CONTACT_PANE){
+            return;
+        }
+        currentPane=CONTACT_PANE;
+        lvContact.setManaged(true);
+        lvContact.setVisible(true);
+        lv.setVisible(false);
+        lv.setManaged(false);
+
     }
 }

@@ -19,7 +19,7 @@ repositories {
 mainClassName = 'cn.net.polyglot.Main'
 
 javafx {
-    version = "11.0.2"
+    version = "11.0.1"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.base', 'javafx.graphics']
 }
 
